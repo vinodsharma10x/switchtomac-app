@@ -74,7 +74,7 @@ export default function ConsentBanner() {
           </button>
           <button
             onClick={() => choose(true)}
-            className="rounded-xl bg-ink px-4 py-2 text-[13.5px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+            className="rounded-xl bg-ink px-4 py-2 text-[13.5px] font-semibold text-bg transition-transform hover:-translate-y-0.5"
           >
             Accept
           </button>

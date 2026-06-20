@@ -62,7 +62,7 @@ export default function BlogList({ posts }: { posts: Post[] }) {
               onClick={() => setActive(p.id)}
               className={`flex-none whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[13px] font-medium capitalize transition-colors ${
                 active === p.id
-                  ? "border-ink bg-ink text-white"
+                  ? "border-ink bg-ink text-bg"
                   : "border-line-2 bg-surface text-ink-2 hover:border-accent hover:text-accent-ink"
               }`}
             >

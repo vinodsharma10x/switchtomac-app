@@ -15,7 +15,7 @@ export default function NotFound() {
         We couldn't find that page. Try the reference, or head back home.
       </p>
       <div className="mt-7 flex flex-wrap justify-center gap-3">
-        <Link href="/" className="rounded-xl bg-ink px-5 py-3 text-[14.5px] font-semibold text-white transition-transform hover:-translate-y-0.5">
+        <Link href="/" className="rounded-xl bg-ink px-5 py-3 text-[14.5px] font-semibold text-bg transition-transform hover:-translate-y-0.5">
           Back home
         </Link>
         <Link href="/#reference" className="rounded-xl border border-line-2 bg-surface px-5 py-3 text-[14.5px] font-semibold text-ink-2 transition-colors hover:border-accent hover:text-accent-ink">

@@ -24,6 +24,16 @@ export default function Footer() {
             of it. So I built this, for Jimmy and everyone making the same move: from the
             world's best business laptop to the most advanced coding machine.
           </p>
+          <Link
+            href="/about"
+            className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-accent-ink transition-transform hover:translate-x-0.5"
+          >
+            Read the story
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h13" />
+              <path d="M13 6l6 6-6 6" />
+            </svg>
+          </Link>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-[13px] text-muted">
