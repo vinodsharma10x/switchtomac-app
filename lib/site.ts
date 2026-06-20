@@ -8,7 +8,7 @@ export const SITE = {
   description:
     "A friendly, searchable guide for moving from Windows to a MacBook: keyboard shortcut translations, how-to guides, videos, and more. Open source.",
   // Change this to your real domain once it's connected on Vercel.
-  url: "https://switchtomac.vinodsharma.ai",
+  url: "https://switchtomac.app",
   // Change this to your GitHub repo (or remove the link in Header/Footer).
   repo: "https://github.com/vinodsharma10x/switchtomac.vinodsharma.ai",
   authors: "Vinod & Claude",

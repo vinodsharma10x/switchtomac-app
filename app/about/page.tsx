@@ -153,18 +153,6 @@ export default function AboutPage() {
       <p className="mt-4 text-[16.5px] leading-[1.7] text-ink-2">
         If it saves one person two months, it did its job.
       </p>
-
-      <p className="mt-12 font-mono text-[12.5px] tracking-wide text-faint">
-        A website by{" "}
-        <a
-          href="https://vinodsharma.ai/"
-          target="_blank"
-          rel="noreferrer"
-          className="underline underline-offset-2 hover:text-accent-ink"
-        >
-          Vinod Sharma
-        </a>
-      </p>
       </div>
     </div>
   );
