@@ -24,16 +24,36 @@ export default function BlogList({ posts }: { posts: Post[] }) {
   }, [posts]);
 
   const [active, setActive] = useState<string>("all");
+  const [query, setQuery] = useState("");
 
-  const filtered =
-    active === "all"
-      ? posts
-      : posts.filter((p) => (p.tags || []).includes(active));
+  const q = query.trim().toLowerCase();
+  const filtered = posts.filter((p) => {
+    const tagMatch = active === "all" || (p.tags || []).includes(active);
+    const textMatch =
+      q === "" ||
+      `${p.title} ${p.excerpt} ${(p.tags || []).join(" ")}`.toLowerCase().includes(q);
+    return tagMatch && textMatch;
+  });
 
   const pills = [{ id: "all", label: "All posts" }, ...tags.map((t) => ({ id: t, label: t }))];
 
   return (
     <>
+      <div className="relative mb-4 max-w-[460px]">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-faint">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.3-4.3" />
+        </svg>
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search posts, for example screenshot, Finder, backup"
+          aria-label="Search posts"
+          className="h-11 w-full rounded-xl border border-line-2 bg-surface pl-10 pr-4 text-[14.5px] outline-none transition-shadow focus:border-accent focus:shadow-[0_0_0_4px_rgba(47,107,255,0.18)]"
+        />
+      </div>
+
       {tags.length > 0 && (
         <div className="no-scrollbar mb-8 flex gap-2 overflow-x-auto pb-1">
           {pills.map((p) => (
@@ -54,7 +74,7 @@ export default function BlogList({ posts }: { posts: Post[] }) {
 
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-line-2 bg-surface p-9 text-center text-[15px] text-muted">
-          No posts in this tag yet.
+          No posts match.
         </div>
       ) : (
         <div className="divide-y divide-line border-y border-line">
