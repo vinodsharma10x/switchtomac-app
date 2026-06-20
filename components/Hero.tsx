@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { KeyCombo } from "@/components/Keycap";
 
 const EXAMPLES: { cap: string; w: string[]; m: string[] }[] = [
@@ -55,21 +54,6 @@ export default function Hero() {
         <b className="font-semibold text-ink">Ctrl</b>. Here's the whole translation, plus
         how to do the everyday things, the videos worth watching, and more.
       </p>
-
-      <div className="mt-7 flex flex-wrap gap-3">
-        <Link
-          href="/shortcuts"
-          className="rounded-xl bg-ink px-5 py-3 text-[14.5px] font-semibold text-white transition-transform hover:-translate-y-0.5"
-        >
-          Open the reference
-        </Link>
-        <Link
-          href="/guides"
-          className="rounded-xl border border-line-2 bg-surface px-5 py-3 text-[14.5px] font-semibold text-ink-2 transition-colors hover:border-accent hover:text-accent-ink"
-        >
-          Browse the guides
-        </Link>
-      </div>
 
       {/* Signature translator */}
       <div

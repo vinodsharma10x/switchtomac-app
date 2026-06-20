@@ -71,7 +71,7 @@ export default function AboutPage() {
       </div>
 
       <p className="mt-12 font-mono text-[12.5px] tracking-wide text-faint">
-        Built by {SITE.authors}. नाम अमर — made to last, and to be shared.
+        © 2026 Vinod Sharma
       </p>
     </div>
   );

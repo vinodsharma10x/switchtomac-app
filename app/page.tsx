@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import ModifierPrimer from "@/components/ModifierPrimer";
+import GuidesGrid from "@/components/GuidesGrid";
 import { SHORTCUTS, TASKS } from "@/lib/shortcuts";
 import { getAllPosts } from "@/lib/blog";
 import { VIDEOS } from "@/lib/videos";
@@ -25,12 +26,6 @@ export default function Home() {
       meta: `${SHORTCUTS.length} shortcuts`,
     },
     {
-      href: "/guides",
-      title: "Everyday how-tos",
-      desc: "The actions that don't map to a single key — right-clicking, recording your screen, where your downloads went.",
-      meta: `${TASKS.length} guides`,
-    },
-    {
       href: "/blog",
       title: "Articles",
       desc: "Longer reads and tips for getting comfortable on macOS, written for people coming from Windows.",
@@ -48,6 +43,22 @@ export default function Home() {
     <>
       <Hero />
       <ModifierPrimer />
+
+      <section className="mx-auto max-w-content px-5 pb-16 sm:px-6">
+        <span className="font-mono text-[12.5px] uppercase tracking-[0.14em] text-muted">
+          Guides
+        </span>
+        <h2 className="mt-2 font-display text-[clamp(28px,4.5vw,40px)] font-bold tracking-[-0.025em]">
+          How to do the everyday things
+        </h2>
+        <p className="mt-3 max-w-[60ch] text-[16px] text-ink-2">
+          The actions that don't map to a single key — right-clicking, recording your
+          screen, finding where a download went.
+        </p>
+        <div className="mt-8">
+          <GuidesGrid tasks={TASKS} />
+        </div>
+      </section>
 
       <section className="mx-auto max-w-content px-5 pb-16 sm:px-6">
         <h2 className="font-display text-[clamp(22px,3.4vw,30px)] font-semibold tracking-[-0.02em]">
