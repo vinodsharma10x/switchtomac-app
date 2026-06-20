@@ -10,20 +10,23 @@ A free, open-source guide for people moving from a Windows PC to a Mac.
 
 ## What's inside
 
-- **The shortcut cheat sheet** — every Windows keyboard shortcut next to its Mac equivalent, searchable and grouped by category.
-- **Everyday guides** — the tasks that don't map to a single key (right-click, screenshots, where downloads go).
-- **Blog** — short, single-question posts for people switching.
+- **The shortcut cheat sheet** — every Windows keyboard shortcut next to its Mac equivalent, searchable and grouped by category (home page).
+- **Trackpad gestures** — the ten Mac trackpad gestures to learn first, as diagrams (home page).
+- **Blog** — short, single-question posts for people switching, with search, tag filtering, and per-post FAQs. The everyday how-to guides (right-click, screenshots, where downloads go) live here too as a searchable post.
 - **Videos** — a curated set of YouTube walkthroughs.
 
 All shortcut and guide data is verified against Apple's documentation for **macOS Tahoe (macOS 26)**.
+
+Plus: **dark mode**, full **SEO** (sitemap, robots, JSON-LD, per-post OpenGraph images, RSS) and **GEO** (`llms.txt` / `llms-full.txt`), optional **GTM analytics** with GDPR consent, and **Privacy / Terms** pages.
 
 ---
 
 ## Tech stack
 
 - [Next.js 14](https://nextjs.org/) (App Router) · React 18 · TypeScript
-- [Tailwind CSS](https://tailwindcss.com/)
-- [`next-mdx-remote`](https://github.com/hashicorp/next-mdx-remote) v6 + [`gray-matter`](https://github.com/jonschlinkert/gray-matter) for blog posts
+- [Tailwind CSS](https://tailwindcss.com/) (class-based dark mode via CSS-variable color tokens)
+- [`next-mdx-remote`](https://github.com/hashicorp/next-mdx-remote) v6 + [`gray-matter`](https://github.com/jonschlinkert/gray-matter), with [`remark-gfm`](https://github.com/remarkjs/remark-gfm) (tables) and [`rehype-slug`](https://github.com/rehypejs/rehype-slug) (heading anchors)
+- `next/og` `ImageResponse` for per-post share images
 - Deployed on [Vercel](https://vercel.com/)
 
 ---
@@ -49,37 +52,43 @@ npm start
 ## Project structure
 
 ```
-app/                     Routes (App Router)
-  page.tsx               Home: hero + cheat sheet + everyday guides
-  blog/                  Blog index and posts
-  videos/  about/        Videos, About
-  privacy/ terms/        Legal pages
-  sitemap.ts robots.ts   SEO
-  llms.txt/ llms-full.txt/  GEO (LLM-readable content)
-  feed.xml/              RSS feed
-components/              UI (Hero, ShortcutTable, GuidesGrid, Keycap, Footer, ...)
-content/blog/*.mdx       Blog posts
+app/
+  page.tsx                 Home: hero + three keys + cheat sheet + trackpad gestures
+  blog/
+    page.tsx               Blog index (search + tag filtering)
+    [slug]/page.tsx        A post (renders body, FAQ section, JSON-LD)
+    [slug]/opengraph-image.tsx   Per-post share card
+  videos/  about/          Videos, About
+  privacy/ terms/          Legal pages
+  sitemap.ts  robots.ts    SEO
+  llms.txt/  llms-full.txt/  GEO (LLM-readable content)
+  feed.xml/                RSS feed
+  layout.tsx               Root metadata, GTM, consent banner, dark-mode no-flash script
+components/                ShortcutTable, GuidesGrid, GesturesGrid, EverydayGuides,
+                           BlogList, Keycap, Hero, Header, Footer, JsonLd,
+                           GoogleTagManager, ConsentBanner, mdx-components, ...
+content/blog/*.mdx         Blog posts
 lib/
-  shortcuts.ts           THE DATA: shortcuts, guides, modifier-key swaps
-  videos.ts              Curated videos
-  site.ts                Brand + site config
-  schema.ts              JSON-LD builders
-  blog.ts                MDX loading helpers
+  shortcuts.ts             THE DATA: shortcuts, guides, modifier-key swaps
+  videos.ts                Curated videos
+  site.ts                  Brand + site config
+  schema.ts                JSON-LD builders
+  blog.ts                  MDX loading helpers
 ```
 
 ---
 
 ## Editing content
 
-Everything is data-driven. Change the data, and the pages, search, sitemap, and `llms-full.txt` all update.
+Everything is data-driven. Change the data, and the pages, search, sitemap, RSS, and `llms-full.txt` all update.
 
 **Add a shortcut or a guide** — edit [`lib/shortcuts.ts`](lib/shortcuts.ts):
 
 ```ts
-// A shortcut row
+// A shortcut row (shows in the cheat sheet)
 { c: "essentials", a: "Copy", w: ["Ctrl", "C"], m: ["⌘", "C"] }
 
-// An everyday guide
+// An everyday guide (shows in the everyday-things post)
 { c: "files", t: "Where did my download go?", win: "Downloads folder",
   m: "Dock & Finder sidebar", how: "Downloads land in the Downloads folder..." }
 ```
@@ -90,17 +99,21 @@ Everything is data-driven. Change the data, and the pages, search, sitemap, and 
 ---
 title: "Your post title"
 date: "2026-06-20"
-excerpt: "One-line summary for the list and SEO."
+excerpt: "One-line summary for the list, SEO, and the share card."
 author: "Vinod Sharma"
-tags: ["basics"]
+tags: ["basics"]            # one of: basics, keyboard, everyday, setup
+faq:                        # optional — renders an FAQ section + FAQPage schema
+  - q: "A common question?"
+    a: "A short, direct answer."
 ---
 
-Your content. You can use the <KeyCombo spec={["⌘", "C"]} mac /> component inline.
+Your content. Markdown tables work, and you can use components inline:
+<KeyCombo spec={["⌘", "C"]} mac />, <GesturesGrid />, <EverydayGuides />.
 ```
 
 **Add a video** — paste a YouTube ID into [`lib/videos.ts`](lib/videos.ts).
 
-**Site-wide settings** (name, URL, social, macOS version) live in [`lib/site.ts`](lib/site.ts).
+**Site-wide settings** (name, URL, author/social, macOS version) live in [`lib/site.ts`](lib/site.ts).
 
 ---
 
@@ -109,14 +122,14 @@ Your content. You can use the <KeyCombo spec={["⌘", "C"]} mac /> component inl
 Built in:
 
 - `sitemap.xml` and `robots.txt` (allows Google and all major AI crawlers: GPTBot, ClaudeBot, PerplexityBot, Google-Extended, and more)
-- JSON-LD structured data (WebSite, Person, BlogPosting, Blog, BreadcrumbList, AboutPage)
-- Per-page canonicals + OpenGraph/Twitter metadata
-- `feed.xml` (RSS 2.0)
-- **`llms.txt` and `llms-full.txt`** — LLM-readable summaries, including the full Windows→Mac shortcut tables, so AI assistants can cite accurate answers.
+- JSON-LD structured data: WebSite, Person, BlogPosting, Blog, BreadcrumbList, AboutPage, and **FAQPage** (per post, from the `faq` frontmatter)
+- Per-page canonicals + OpenGraph/Twitter metadata, and **per-post generated OG images**
+- Heading anchor IDs on posts, and `feed.xml` (RSS 2.0)
+- **`llms.txt` and `llms-full.txt`** — LLM-readable summaries, including the full Windows→Mac shortcut tables and guides, so AI assistants can cite accurate answers.
 
 ---
 
-## Analytics (optional)
+## Analytics & consent (optional)
 
 Analytics is off unless you provide a Google Tag Manager container. Everything else (GA4, Clarity, etc.) is configured inside GTM, not in code.
 
@@ -125,7 +138,7 @@ Analytics is off unless you provide a Google Tag Manager container. Everything e
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 ```
 
-When set, the site loads GTM with **Consent Mode v2** and shows a lightweight cookie-consent banner (analytics defaults to denied in the EEA/UK/CH until accepted). When unset, no analytics and no banner load.
+When set, the site loads GTM with **Consent Mode v2** and a lightweight cookie-consent banner (analytics defaults to denied in the EEA/UK/CH until accepted). When unset, no analytics and no banner load.
 
 ---
 
