@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getPost, getAllSlugs, formatDate } from "@/lib/blog";
 import { mdxComponents } from "@/components/mdx-components";
 import JsonLd from "@/components/JsonLd";
-import { blogPostingLd, breadcrumbLd } from "@/lib/schema";
+import { blogPostingLd, breadcrumbLd, faqPageLd } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -49,6 +49,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
             { name: "Blog", path: "/blog" },
             { name: post.title, path: `/blog/${post.slug}` },
           ]),
+          ...(post.faq && post.faq.length ? [faqPageLd(post.faq)] : []),
         ]}
       />
       <Link
@@ -87,6 +88,24 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           options={{ blockJS: false, mdxOptions: { remarkPlugins: [remarkGfm] } }}
         />
       </div>
+
+      {post.faq && post.faq.length > 0 && (
+        <section className="mt-12 border-t border-line pt-8">
+          <h2 className="font-display text-[22px] font-semibold tracking-[-0.02em]">
+            Frequently asked questions
+          </h2>
+          <div className="mt-4 divide-y divide-line">
+            {post.faq.map((item, i) => (
+              <div key={i} className="py-4">
+                <h3 className="font-display text-[16.5px] font-semibold tracking-[-0.01em] text-ink">
+                  {item.q}
+                </h3>
+                <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       </article>
     </div>
   );

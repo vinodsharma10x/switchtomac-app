@@ -1,9 +1,21 @@
 // Schema.org / JSON-LD builders. Kept in one place so the @id references
 // (#person, #website) stay consistent across every page.
 import { SITE } from "@/lib/site";
-import type { Post } from "@/lib/blog";
+import type { Post, FaqItem } from "@/lib/blog";
 
 const OG_IMAGE = `${SITE.url}/opengraph-image.png`;
+
+export function faqPageLd(faq: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
 
 export const personLd = {
   "@context": "https://schema.org",

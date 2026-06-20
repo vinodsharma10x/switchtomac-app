@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -11,6 +16,7 @@ export interface Post {
   excerpt: string;
   author?: string;
   tags?: string[];
+  faq?: FaqItem[];
   content: string;
 }
 
@@ -34,6 +40,7 @@ export function getPost(slug: string): Post | null {
     excerpt: data.excerpt ?? "",
     author: data.author,
     tags: data.tags ?? [],
+    faq: Array.isArray(data.faq) ? data.faq : undefined,
     content,
   };
 }
