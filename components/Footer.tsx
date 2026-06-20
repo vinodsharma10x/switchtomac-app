@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="mt-12 border-t border-line">
-      <div className="w-full px-5 py-12 sm:px-6">
+      <div className="mx-auto max-w-content px-5 py-12 sm:px-6">
         <div>
           <div className="flex items-center gap-2.5">
             <span className="grid h-[28px] w-[28px] place-items-center rounded-lg border border-line-2 bg-gradient-to-b from-white to-[#eef1f7] font-mono text-[15px] text-accent-ink shadow-[0_1px_0_#c7cdd7,inset_0_1px_0_#fff]">
