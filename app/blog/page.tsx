@@ -21,8 +21,7 @@ export default function BlogPage() {
           Notes &amp; tips
         </h1>
         <p className="mt-3 max-w-[60ch] text-[16px] text-ink-2">
-          Bite-sized answers to the everyday Mac questions you'll have after years on
-          Windows.
+          Bite-sized answers to the everyday Mac questions for people coming from Windows.
         </p>
       </header>
 
