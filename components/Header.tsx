@@ -13,6 +13,35 @@ function GitHubIcon() {
   );
 }
 
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle("dark");
+  try {
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  } catch {
+    /* ignore */
+  }
+}
+
+// Icon visibility is driven purely by the .dark class on <html>, so it stays
+// correct on first paint without React state (no hydration flicker).
+function ThemeToggle({ className = "" }: { className?: string }) {
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label="Toggle dark mode"
+      className={`grid h-9 w-9 place-items-center rounded-lg text-ink-2 transition-colors hover:bg-bg-soft hover:text-ink ${className}`}
+    >
+      <svg className="block h-[18px] w-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+      </svg>
+      <svg className="hidden h-[18px] w-[18px] dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+      </svg>
+    </button>
+  );
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -24,7 +53,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-md backdrop-saturate-150">
       <div className="mx-auto flex h-[60px] max-w-content items-center gap-6 px-5 sm:px-6">
         <Link href="/" className="flex flex-none items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid h-[30px] w-[30px] place-items-center rounded-lg border border-line-2 bg-gradient-to-b from-white to-[#eef1f7] font-mono text-[16px] text-accent-ink shadow-[0_1px_0_#c7cdd7,inset_0_1px_0_#fff]">
+          <span className="grid h-[30px] w-[30px] place-items-center rounded-lg border border-line-2 bg-gradient-to-b from-white to-[#eef1f7] font-mono text-[16px] text-accent-ink shadow-[0_1px_0_#c7cdd7,inset_0_1px_0_#fff] dark:from-[#262c36] dark:to-[#1b2028] dark:shadow-[0_1px_0_#0f1318,inset_0_1px_0_rgba(255,255,255,0.05)]">
             ⌘
           </span>
           <span className="font-display text-[18px] font-bold tracking-tight">
@@ -57,11 +86,14 @@ export default function Header() {
           >
             <GitHubIcon />
           </a>
+          <ThemeToggle />
         </nav>
+
+        <ThemeToggle className="ml-auto md:hidden" />
 
         {/* Mobile toggle */}
         <button
-          className="ml-auto grid h-9 w-9 place-items-center rounded-lg text-ink-2 hover:bg-bg-soft md:hidden"
+          className="grid h-9 w-9 place-items-center rounded-lg text-ink-2 hover:bg-bg-soft md:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

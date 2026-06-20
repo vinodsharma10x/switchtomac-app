@@ -2,13 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Colors are stored as RGB channels so Tailwind opacity modifiers
+   (e.g. bg-bg/80) work with these CSS variables. */
 :root {
-  --line-2: #d5dae2;
-  --faint: #9aa0ac;
-  --muted: #6e747f;
-  --ink: #14161b;
-  --accent: #2f6bff;
-  --accent-ink: #1b4ed1;
+  --bg: 245 246 249;
+  --bg-soft: 236 238 243;
+  --surface: 255 255 255;
+  --ink: 20 22 27;
+  --ink-2: 59 65 76;
+  --muted: 110 116 127;
+  --faint: 154 160 172;
+  --line: 227 230 236;
+  --line-2: 213 218 226;
+  --accent: 47 107 255;
+  --accent-ink: 27 78 209;
+  --accent-weak: 235 241 255;
+}
+
+.dark {
+  --bg: 14 16 20;
+  --bg-soft: 24 27 33;
+  --surface: 21 24 30;
+  --ink: 234 237 242;
+  --ink-2: 179 186 198;
+  --muted: 139 147 161;
+  --faint: 106 113 125;
+  --line: 38 43 51;
+  --line-2: 51 57 68;
+  --accent: 91 140 255;
+  --accent-ink: 143 176 255;
+  --accent-weak: 24 35 61;
+  color-scheme: dark;
 }
 
 html {
@@ -22,7 +46,7 @@ body {
 }
 
 ::selection {
-  background: #ebf1ff;
+  background: rgb(var(--accent-weak));
 }
 
 /* ----------------------------------------------------------------
@@ -41,7 +65,7 @@ body {
   line-height: 1;
   color: #2a2f38;
   background: linear-gradient(180deg, #ffffff 0%, #f1f3f7 100%);
-  border: 1px solid var(--line-2);
+  border: 1px solid rgb(var(--line-2));
   border-radius: 9px;
   box-shadow: 0 1.5px 0 #bfc6d1, 0 2px 4px rgba(20, 22, 27, 0.1), inset 0 1px 0 #ffffff;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -52,7 +76,7 @@ body {
   font-size: 1.04rem;
 }
 .kbd--mac {
-  color: var(--ink);
+  color: rgb(var(--ink));
   border-color: #bcceff;
   background: linear-gradient(180deg, #ffffff 0%, #f1f5ff 100%);
   box-shadow: 0 1.5px 0 #9fb7ff, 0 2px 5px rgba(47, 107, 255, 0.16), inset 0 1px 0 #ffffff;
@@ -66,25 +90,45 @@ body {
   font-size: 1.32rem;
 }
 .ksep {
-  color: var(--faint);
+  color: rgb(var(--faint));
   font-family: var(--font-mono), monospace;
   font-size: 0.85em;
   padding: 0 1px;
 }
 .kword {
-  color: var(--muted);
+  color: rgb(var(--muted));
   font-family: var(--font-mono), monospace;
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   padding: 0 1px;
 }
 .phrase {
-  color: var(--muted);
+  color: rgb(var(--muted));
   font-style: italic;
   font-size: 0.92rem;
 }
 .phrase.win {
-  color: var(--faint);
+  color: rgb(var(--faint));
+}
+
+/* Keycaps in dark mode: dark caps, subtle light text and edge highlight. */
+.dark .kbd {
+  color: #d7dbe3;
+  background: linear-gradient(180deg, #2b313b 0%, #21262e 100%);
+  box-shadow: 0 1.5px 0 #141820, 0 2px 4px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.dark .kbd--mac {
+  color: #eef2ff;
+  border-color: #36497a;
+  background: linear-gradient(180deg, #232c41 0%, #1a2134 100%);
+  box-shadow: 0 1.5px 0 #243763, 0 2px 5px rgba(47, 107, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.dark .row-hover:hover .keys-mac .kbd--mac,
+.dark .keys-mac:hover .kbd--mac {
+  box-shadow: 0 0 0 #243763, 0 1px 2px rgba(47, 107, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* press feedback when hovering a shortcut row, or any Mac key combo on the page */

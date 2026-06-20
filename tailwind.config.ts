@@ -6,17 +6,28 @@ const config: Config = {
     "./components/**/*.{ts,tsx}",
     "./content/**/*.mdx",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        bg: "#F5F6F9",
-        "bg-soft": "#ECEEF3",
-        surface: "#FFFFFF",
-        ink: { DEFAULT: "#14161B", 2: "#3B414C" },
-        muted: "#6E747F",
-        faint: "#9AA0AC",
-        line: { DEFAULT: "#E3E6EC", 2: "#D5DAE2" },
-        accent: { DEFAULT: "#2F6BFF", ink: "#1B4ED1", weak: "#EBF1FF" },
+        bg: "rgb(var(--bg) / <alpha-value>)",
+        "bg-soft": "rgb(var(--bg-soft) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        ink: {
+          DEFAULT: "rgb(var(--ink) / <alpha-value>)",
+          2: "rgb(var(--ink-2) / <alpha-value>)",
+        },
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        faint: "rgb(var(--faint) / <alpha-value>)",
+        line: {
+          DEFAULT: "rgb(var(--line) / <alpha-value>)",
+          2: "rgb(var(--line-2) / <alpha-value>)",
+        },
+        accent: {
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          ink: "rgb(var(--accent-ink) / <alpha-value>)",
+          weak: "rgb(var(--accent-weak) / <alpha-value>)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "-apple-system", "Segoe UI", "sans-serif"],

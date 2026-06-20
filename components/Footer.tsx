@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto max-w-content px-5 py-12 sm:px-6">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-[28px] w-[28px] place-items-center rounded-lg border border-line-2 bg-gradient-to-b from-white to-[#eef1f7] font-mono text-[15px] text-accent-ink shadow-[0_1px_0_#c7cdd7,inset_0_1px_0_#fff]">
+            <span className="grid h-[28px] w-[28px] place-items-center rounded-lg border border-line-2 bg-gradient-to-b from-white to-[#eef1f7] font-mono text-[15px] text-accent-ink shadow-[0_1px_0_#c7cdd7,inset_0_1px_0_#fff] dark:from-[#262c36] dark:to-[#1b2028] dark:shadow-[0_1px_0_#0f1318,inset_0_1px_0_rgba(255,255,255,0.05)]">
               ⌘
             </span>
             <span className="font-display text-[17px] font-bold tracking-tight">
