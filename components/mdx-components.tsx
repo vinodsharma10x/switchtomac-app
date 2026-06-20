@@ -50,6 +50,18 @@ export const mdxComponents = {
   pre: (p: any) => (
     <pre className="my-6 overflow-x-auto rounded-xl border border-line bg-[#0f1117] p-4 font-mono text-[13.5px] leading-relaxed text-[#e6e8ee]" {...p} />
   ),
+  table: (p: any) => (
+    <div className="my-6 overflow-x-auto rounded-2xl border border-line">
+      <table className="w-full border-collapse text-[14.5px]" {...p} />
+    </div>
+  ),
+  thead: (p: any) => <thead className="bg-bg-soft" {...p} />,
+  th: (p: any) => (
+    <th className="border-b border-line px-4 py-2.5 text-left font-mono text-[11.5px] uppercase tracking-[0.08em] text-faint" {...p} />
+  ),
+  td: (p: any) => (
+    <td className="border-t border-line px-4 py-2.5 align-top text-ink-2" {...p} />
+  ),
   // custom components for use inside posts:
   KeyCombo,
   TaskCard,
