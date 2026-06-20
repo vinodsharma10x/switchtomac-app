@@ -55,7 +55,11 @@ export default function PostPage({ params }: { params: { slug: string } }) {
       </header>
 
       <div className="mt-2">
-        <MDXRemote source={post.content} components={mdxComponents} />
+        <MDXRemote
+          source={post.content}
+          components={mdxComponents}
+          options={{ blockJS: false }}
+        />
       </div>
     </article>
   );
