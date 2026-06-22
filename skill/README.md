@@ -1,67 +1,69 @@
-# Switch to Mac — an installable skill
+# The Switch to Mac skill for Claude and Codex
 
-Ask your AI agent for the Mac equivalent of any Windows shortcut, how to do a
-task on a Mac, or how a trackpad gesture works, and get a precise answer without
-opening a website. The answers come from the verified data behind
-[switchtomac.app](https://switchtomac.app).
+Install the free Switch skill inside Claude or Codex, and ask for any Mac shortcut, task, or gesture, right in your chat.
 
-Examples:
+It is the same data that runs [switchtomac.app](https://switchtomac.app), packaged so your own AI answers from it instead of guessing.
+
+## What it does
+
+Install it, then ask your AI in plain English:
 
 - "What's Ctrl+C on a Mac?" → `Cmd C`
-- "What does Cmd Shift 4 do?" → capture part of the screen
-- "How do I right-click on a Mac?" → tap with two fingers (or Control click)
+- "How do I take a screenshot on a Mac?" → `Cmd Shift 4` for part of the screen, `Cmd Shift 3` for all of it
 - "How do I force quit on a Mac?" → `Cmd Option Esc`
-- "Show me all the keyboard mappings"
+- "How do I right-click on the trackpad?" → tap with two fingers
+- "Show me all the keyboard mappings" → the full Windows to Mac table
 
-It answers only from the bundled reference, so it does not make shortcuts up.
-
-## What's in here
+## What's inside
 
 ```
-SKILL.md            The skill for Claude (name, description, answer rules)
-reference/
-  shortcuts.md      Windows to Mac keyboard shortcuts, by category
-  tasks.md          Everyday tasks with how-tos
-  gestures.md       Trackpad gestures
-codex/
-  prompt.md         Codex slash-command version
-  AGENTS.md         Codex persistent-instructions version
-scripts/generate.mts  Regenerates reference/ from the site's data
+skill/
+  SKILL.md                 the skill itself: triggers and answer rules
+  reference/
+    shortcuts.md           71 shortcuts by category, plus the 3 modifier swaps
+    tasks.md               14 everyday how-tos
+    gestures.md            10 trackpad gestures
+  codex/
+    prompt.md, AGENTS.md   Codex slash command and always-on instructions
+  scripts/generate.mts     regenerates reference/ from the site data
 ```
 
-## Install in Claude
+## Install
 
-**Claude Code (personal):** copy this `skill/` folder into `~/.claude/skills/switch-to-mac/`
-(so `SKILL.md` sits at `~/.claude/skills/switch-to-mac/SKILL.md`). Restart Claude
-Code. Then just ask a switching question.
-
-**Claude Code (one project):** copy it into `.claude/skills/switch-to-mac/` inside
-that project.
-
-**Claude.ai:** zip the `switch-to-mac/` folder (with `SKILL.md` and `reference/`)
-and upload it under Settings → Skills.
-
-## Install in Codex
-
-**As a slash command:** copy `codex/prompt.md` and the `reference/` folder into
-`~/.codex/prompts/`, naming the prompt `switch-to-mac.md`. Run it with
-`/switch-to-mac`.
-
-**As always-on instructions:** copy the contents of `codex/AGENTS.md` into your
-project's `AGENTS.md`, and keep the `reference/` folder alongside it.
-
-## Keeping it in sync with the site
-
-The reference files are generated from the same data the website runs on, so they
-never drift. To regenerate after the site's shortcuts or tasks change:
+The same skill folder works in all three tools. Start by getting the files:
 
 ```bash
-npm run skill:generate
+git clone https://github.com/vinodsharma10x/switchtomac-app
 ```
 
-This reads `lib/shortcuts.ts` and `lib/gestures.ts` and rewrites `skill/reference/`.
+### Claude Code
+
+```bash
+cp -r switchtomac-app/skill ~/.claude/skills/switch-to-mac
+```
+
+Restart Claude Code. It picks up the skill automatically. Then ask: what's Ctrl C on a Mac?
+
+### Claude.ai
+
+Turn on Code execution under Settings, Capabilities. Then go to Customize, Skills, and upload the `skill` folder as a ZIP. Toggle it on, then ask any shortcut, task, or gesture question in a new chat.
+
+### Codex
+
+```bash
+cp -r switchtomac-app/skill ~/.codex/skills/switch-to-mac
+```
+
+For the slash command and always-on instructions, use the files in `skill/codex/`.
+
+## How to use it
+
+Ask in plain English. The skill recognizes shortcut, task, and gesture questions and answers from the reference files, so you get the Mac answer, not a guess. Try "the Mac equivalent of Alt Tab" or "how do I take a screenshot of one window."
+
+## Regenerate the reference (for contributors)
+
+The files in `reference/` are generated from the switchtomac.app site data, so the skill and the site never drift apart. After updating the site data, rebuild them with `scripts/generate.mts`.
 
 ## License
 
-MIT. A skill by [Vinod Sharma](https://vinodsharma.ai), from
-[switchtomac.app](https://switchtomac.app).
+MIT. Use it, fork it, ship your own version. If you add a shortcut or fix one, a pull request is welcome.

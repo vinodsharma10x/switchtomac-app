@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import ModifierPrimer from "@/components/ModifierPrimer";
 import ShortcutTable from "@/components/ShortcutTable";
@@ -28,6 +29,20 @@ export default function Home() {
         </p>
         <div className="mt-8">
           <ShortcutTable cats={CATS} shortcuts={SHORTCUTS} />
+        </div>
+
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-bg-soft px-5 py-4">
+          <p className="max-w-[54ch] text-[15px] leading-relaxed text-ink-2">
+            <span className="font-semibold text-ink">Want a Switch skill inside your AI assistant?</span>{" "}
+            Install the free Switch skill and ask Claude or Codex for any Mac shortcut, task,
+            or gesture, right in your chat.
+          </p>
+          <Link
+            href="/skill"
+            className="flex-none text-[15px] font-semibold text-accent-ink transition-transform hover:translate-x-0.5"
+          >
+            Get the skill →
+          </Link>
         </div>
       </section>
 
