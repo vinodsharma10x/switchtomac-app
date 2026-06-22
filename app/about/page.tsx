@@ -163,8 +163,9 @@ export default function AboutPage() {
 
         <h2 className={h2}>Open, and free.</h2>
         <p className={p}>
-          {SITE.name} is open source under the MIT License. Use it, share it, send it to the
-          person on your team who just got a Mac and has not opened it yet.
+          {SITE.name} is open source under the MIT License. I built it using Claude Code
+          &amp; Codex. Use it, share it, send it to the person on your team who just got a
+          Mac and has not switched to it yet.
         </p>
         <p className={p}>If it saves one person two months, it did its job.</p>
       </div>
