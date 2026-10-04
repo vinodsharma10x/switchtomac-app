@@ -62,7 +62,7 @@ export function blogPostingLd(post: Post) {
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: "en",
-    image: OG_IMAGE,
+    image: post.cover ? `${SITE.url}${post.cover}` : OG_IMAGE,
     author: {
       "@type": "Person",
       name: post.author || SITE.author.name,

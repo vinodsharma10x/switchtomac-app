@@ -45,6 +45,10 @@ export const mdxComponents = {
     <blockquote className="my-6 border-l-2 border-accent pl-4 text-[16.5px] italic text-muted" {...p} />
   ),
   hr: () => <hr className="my-10 border-line" />,
+  img: (p: any) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img loading="lazy" className="mt-6 w-full rounded-2xl border border-line" {...p} />
+  ),
   strong: (p: any) => <strong className="font-semibold text-ink" {...p} />,
   code: (p: any) => (
     <code className="rounded-md bg-bg-soft px-1.5 py-0.5 font-mono text-[14px] text-ink" {...p} />
