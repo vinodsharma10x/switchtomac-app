@@ -4,6 +4,7 @@ import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GtmScript, GtmNoScript } from "@/components/GoogleTagManager";
+import { AdSenseScript } from "@/components/AdSense";
 import ConsentBanner from "@/components/ConsentBanner";
 import { SITE } from "@/lib/site";
 
@@ -51,6 +52,10 @@ export const metadata: Metadata = {
     canonical: "/",
     types: { "application/rss+xml": "/feed.xml" },
   },
+  // AdSense site-ownership verification. Same publisher ID across every site.
+  ...(process.env.NEXT_PUBLIC_ADSENSE_CLIENT
+    ? { other: { "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_CLIENT } }
+    : {}),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -100,6 +105,7 @@ export default function RootLayout({
       <body className="min-h-screen">
         <GtmNoScript />
         <GtmScript />
+        <AdSenseScript />
         <Header />
         <main>{children}</main>
         <Footer />
